@@ -70,7 +70,7 @@ Infect and kill every last human before the cure lands. Leave even one survivor 
 | Select country | Left click on map |
 | Deselect | Click empty ocean |
 | Zoom map | Scroll wheel |
-| Pan map | Right click + drag |
+| Pan map | Left click + drag on empty ocean |
 | Open Evolution | 🧬 DNA button (top bar) |
 | Pop all bubbles | 💥 POP ALL button |
 | Speed controls | ⏸ / 1x / 2x / 3x buttons |
@@ -130,4 +130,4 @@ He engineered the Omaplague pathogen after someone pinged @everyone in Discord f
 
 ---
 
-*Linux only for now. Source code is private.*
+*Linux only for now. **Source code:** [tonythesuperpony/omaplague](https://github.com/tonythesuperpony/omaplague)*
