@@ -130,4 +130,4 @@ He engineered the Omaplague pathogen after someone pinged @everyone in Discord f
 
 ---
 
-*Linux only for now. **Source code:** [tonythesuperpony/omaplague](https://github.com/tonythesuperpony/omaplague)*
+*Linux only for now. **Source code:** [tonythesuperpony/omaplague-source](https://github.com/tonythesuperpony/omaplague-source)*
