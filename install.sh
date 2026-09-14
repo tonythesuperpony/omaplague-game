@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Omaplague Install Script
-# Installs the game binary and registers it as a system app
+# Downloads the game binary from GitHub Releases and registers it as a system app
 
 set -e
 
@@ -9,25 +9,29 @@ BIN_DIR="$HOME/.local/bin"
 ICON_DIR="$HOME/.local/share/icons/hicolor/256x256/apps"
 DESKTOP_DIR="$HOME/.local/share/applications"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+RELEASE_URL="https://github.com/tonythesuperpony/omaplague-game/releases/latest/download/omaplague.x86_64"
 
 echo "=== Omaplague Installer ==="
 echo ""
 
-# Check binary exists
-if [ ! -f "$SCRIPT_DIR/omaplague.x86_64" ]; then
-  echo "ERROR: omaplague.x86_64 not found next to this script."
-  echo "Download a release from https://github.com/tonythesuperpony/omaplague/releases"
-  exit 1
+mkdir -p "$INSTALL_DIR" "$BIN_DIR" "$ICON_DIR" "$DESKTOP_DIR"
+
+# Use local binary if present next to script, otherwise download
+if [ -f "$SCRIPT_DIR/omaplague.x86_64" ]; then
+  echo "Found local binary, copying..."
+  cp "$SCRIPT_DIR/omaplague.x86_64" "$INSTALL_DIR/omaplague.x86_64"
+else
+  echo "Downloading binary from GitHub Releases..."
+  if command -v curl &>/dev/null; then
+    curl -L "$RELEASE_URL" -o "$INSTALL_DIR/omaplague.x86_64" --progress-bar
+  elif command -v wget &>/dev/null; then
+    wget "$RELEASE_URL" -O "$INSTALL_DIR/omaplague.x86_64"
+  else
+    echo "ERROR: curl or wget required to download the binary."
+    exit 1
+  fi
 fi
 
-echo "Installing to $INSTALL_DIR ..."
-mkdir -p "$INSTALL_DIR"
-mkdir -p "$BIN_DIR"
-mkdir -p "$ICON_DIR"
-mkdir -p "$DESKTOP_DIR"
-
-# Copy binary (PCK is embedded, so just the one file)
-cp "$SCRIPT_DIR/omaplague.x86_64" "$INSTALL_DIR/omaplague.x86_64"
 chmod +x "$INSTALL_DIR/omaplague.x86_64"
 
 # Copy icon
@@ -66,4 +70,3 @@ echo "   Launcher: $DESKTOP_DIR/omaplague.desktop"
 echo "   Command : omaplague"
 echo ""
 echo "It should now appear in your app launcher."
-echo "You may need to log out and back in if it doesn't show immediately."
